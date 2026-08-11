@@ -1,8 +1,13 @@
+import sys
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.services.preprocessing import DataLoader
-from backend.services.kpi_engine import KPIEngine
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from services.preprocessing import DataLoader
+from services.kpi_engine import KPIEngine
 
 app = FastAPI(
     title="Restaurant Intelligence Platform",
@@ -13,6 +18,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
+        "*",  # Allow all origins for Vercel deployment
     ],
     allow_credentials=True,
     allow_methods=["*"],

@@ -6,21 +6,20 @@ from dotenv import load_dotenv
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ENV_PATH = os.path.join(BASE_DIR, ".env")
 
-load_dotenv(ENV_PATH)
+# Try to load from .env file for local development, but don't fail if it doesn't exist
+if os.path.exists(ENV_PATH):
+    load_dotenv(ENV_PATH)
 
 
 class DataLoader:
 
     def __init__(self):
 
-        # Load environment variables from backend/.env
-        load_dotenv()
-
         # Get Supabase database URL
         DATABASE_URL = os.getenv("DATABASE_URL")
 
         if not DATABASE_URL:
-            raise ValueError("DATABASE_URL not found in .env")
+            raise ValueError("DATABASE_URL not found in environment variables")
 
         # Create database connection
         self.engine = create_engine(DATABASE_URL)
