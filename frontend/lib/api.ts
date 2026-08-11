@@ -1,4 +1,4 @@
-const API_BASE_URL = "/svc/api";
+const API_BASE_URL = "/api";
 
 export async function fetchExecutiveDashboard() {
   const response = await fetch(`${API_BASE_URL}/executive`);
